@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'ear'
+}
+
+dependencies {
+    // warプロジェクトを指定
+    deploy project(path: ':myappGradle', configuration: 'archives')
+
+    compile 'com.google.guava:guava:23.0'
+    testCompile 'junit:junit:4.12'
+}
+
+repositories {
+    jcenter()
+}
+
+ear {
+    //appDirName 'src/main/app'
+    //libDirName 'APP-INF/lib'
+    deploymentDescriptor {
+        applicationName = "myapp"
+        initializeInOrder = true
+        displayName = "MyApp Ear"
+        //description = "My App EAR for the Gradle documentation"
+        //securityRole "admin"
+        //securityRole "superadmin"
+        //withXml { provider ->
+        //    provider.asNode().appendNode("data-source", "my/data/source")
+        //}
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.10.1'
+}
